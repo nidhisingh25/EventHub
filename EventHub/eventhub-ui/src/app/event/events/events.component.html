@@ -1,0 +1,209 @@
+<div *ngIf="events.length==0; else elseblock">
+  <h1 style="text-align: center;">
+  <img src="https://vinoroc.com/static/app/images/no-record-found.76d6bd93c23b.gif"/>
+  </h1>
+
+  </div>
+
+  <ng-template #elseblock>
+
+<div class="left-search">
+  <input
+    class="navSearch rounded-pill"
+    type="text"
+    name="title"
+    placeholder="Search event "
+    [(ngModel)]="title"
+    (ngModelChange)="Search()"
+  /><mat-icon
+    ><span class="material-icons-outlined navSearch-icon">
+      search
+    </span></mat-icon
+  >
+</div>
+
+
+
+<pagination-controls
+  class="class-pgnup"
+  (pageChange)="pageChanged($event)"
+></pagination-controls>
+
+<br /><br />
+<h2 style="margin-left: 19%;">showing {{ events.length }} results for {{ categoryname }}</h2>
+
+<div class="row">
+
+<div class="col-md-2" style="padding-left: 5%;">
+  <button mat-button (click)="sort(sorttitle)">
+  Filter By Name<mat-icon>
+    <span class="material-icons-outlined"> filter_alt </span>
+  </mat-icon>
+</button>
+
+<button mat-button (click) = "routeToUpcoming()" >
+  Upcoming Events<mat-icon>
+    <!-- <span class="material-icons-outlined"> filter_alt </span> -->
+  </mat-icon>
+</button>
+
+<button mat-button  (click) = "routeToPopular()">
+  Popular Events<mat-icon>
+    <!-- <span class="material-icons-outlined"> filter_alt </span> -->
+  </mat-icon>
+</button>
+
+<button mat-button *ngFor="let category of categories"  (click) = "routeToCategory(category.categoryName)">
+  Filter By {{category.categoryName}}<mat-icon>
+    <!-- <span class="material-icons-outlined"> filter_alt </span> -->
+  </mat-icon>
+</button>
+
+
+</div>
+  <div class="col-md-10">
+    <div fxLayout="row wrap center" fxa fxLayoutGap="16px grid" fxLayoutAlign="center space-around">
+      <div fxFlex="32%" *ngFor="let event of events | orderBy: sorttitle:reverse | paginate: config">
+        <div class="card">
+          <div style="height: 170px; width: 370px;">
+              <img  mat-card-image (click)="navigateToEventDetails(event.eventId)" src="{{ event.eventImage }}" alt="Event Image" style="height: 100%; width: 100%;" />
+          </div>
+
+            <div class="row" style="background-color:rgb(255, 191, 52); width: 370px; margin-left: 0%; ">
+              <div class="col-md-2">
+                  <mat-icon style="color: black; font-size: 40px; margin-top: 20%; cursor: pointer;" (click)="moveToWishlist($event,event)">favorite</mat-icon>
+              </div>
+              <div class="col-md-8" style="color: black; font-weight: bolder; font-size: large; margin-top: 1%; text-align: center; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; ">
+                {{ event.eventName }}
+                <p style="margin-top: 1%; font-size: small; font-weight: bold;">
+                    Date: {{ event.eventDate }}
+                </p>
+                <p style= "font-size: medium; font-family:Georgia, 'Times New Roman', Times, serif">
+                  {{event.eventStartTime | lowercase}} - {{event.eventEndTime | lowercase}}
+                </p>
+                 
+                  <p style="font-size: 15px; color: rgb(255, 2, 2); ">
+                    {{getRegistrationStatus(event)}}
+                  </p>
+              </div>
+
+              <div class="col-md-1" style="color: black; margin-top: 3%">
+                <mat-icon (click)="open(contentshare)" style="font-size: 40px;"><span class="material-icons-outlined"> share </span></mat-icon>
+              </div>
+              <div class="row">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-7" style="color: rgb(11, 146, 236); font-size: small; font-weight: bold; text-align: right; padding-left: 2%; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                  This event is hosted on
+                </div>
+                 <div class="col-md-1" style="text-align: left; "> 
+                  <img style="width: 70px; height: 35px; padding-bottom: 12px;" src="https://s3.ap-south-1.amazonaws.com/townscript-common-resources/assets/zoom_min.png" />
+                </div>
+
+
+              </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<br /><br />
+
+<pagination-controls
+  class="class-pgn"
+  (pageChange)="pageChanged($event)"
+></pagination-controls>
+
+<ng-template #contentshare let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">Share Event</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div _ngcontent-serverapp-c148="" class="px-2 py-2">
+      <div
+        _ngcontent-serverapp-c148=""
+        class="platforms flex flex-wrap items-center justify-center"
+      >
+        <a
+          _ngcontent-serverapp-c148=""
+          target="_blank"
+          href="https://twitter.com/"
+        >
+          <div
+            _ngcontent-serverapp-c148=""
+            class="platform text-center cursor-pointer py-2 px-4 flex-1"
+          >
+            <i
+              _ngcontent-serverapp-c148=""
+              class="mdi mdi-twitter block text-4xl twitter"
+            ></i>
+            <span
+              _ngcontent-serverapp-c148=""
+              class="text-gray-700 text-sm block"
+              ><mat-icon>
+                <img src="https://img.icons8.com/fluency/50/000000/twitter.png"
+              /></mat-icon>
+            </span></div
+        ></a>
+        <br />
+        <a _ngcontent-serverapp-c148="" target="_blank" href="https://.com/">
+          <div
+            _ngcontent-serverapp-c148=""
+            class="platform text-center cursor-pointer py-2 px-4 flex-1"
+          >
+            <i
+              _ngcontent-serverapp-c148=""
+              class="mdi mdi-twitter block text-4xl twitter"
+            ></i>
+            <span
+              _ngcontent-serverapp-c148=""
+              class="text-gray-700 text-sm block"
+              ><mat-icon>
+                <img
+                  src="https://img.icons8.com/color/48/000000/microsoft-teams.png"
+              /></mat-icon>
+            </span></div
+        ></a>
+        <br />
+        <a
+          _ngcontent-serverapp-c148=""
+          target="_blank"
+          href="https://www.linkedin.com/"
+        >
+          <div
+            _ngcontent-serverapp-c148=""
+            class="platform text-center cursor-pointer py-2 px-4 flex-1"
+          >
+            <i
+              _ngcontent-serverapp-c148=""
+              class="mdi mdi-linkedin block text-4xl linkedin"
+            ></i>
+            <span
+              _ngcontent-serverapp-c148=""
+              class="text-gray-700 text-sm block"
+              ><mat-icon>
+                <img
+                  src="https://img.icons8.com/fluency/50/000000/linkedin.png"
+                /> </mat-icon
+            ></span></div
+        ></a>
+      </div>
+    </div>
+    <br />
+  </div>
+</ng-template>
+</ng-template>

@@ -1,0 +1,38 @@
+eureka:
+  client:
+    enabled: true
+    fetch-registry: true
+    instance:
+      hostname: localhost
+    register-with-eureka: true
+    service-url:
+      defaultZone: https://eventhub-naming-urtjok3rza-wl.a.run.app/eureka/
+
+server:
+  port: 9191
+
+spring:
+  application:
+    name: EVENTHUB-GATEWAY
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+jwt.secret: BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY
+
+app.
+  permit.
+    auth: /authenticate
+    signup: /signup
+
+#      routes: ( make sure the indentation is perfect otherwise won't work )
+#        - id: product-service    --> The name of the application
+#          uri: lb://product-service
+#          predicates:
+#            - Path=/products/**  --> The routes where the application first navigate or dashboard we can say
+#        - id: cart-service
+#          uri: lb://cart-service
+#          predicates:
+#            - Path=/cart/**

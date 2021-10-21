@@ -1,0 +1,173 @@
+<div class="container" style="height: 100%">
+  <div class="row" style="height: 20%;">
+    <img height="100%" width="100px" src="assets/images/css.png"/>
+    <h1  style="color: white;">Welcome to EventHub</h1>
+  </div>
+
+  <div class="row" style="height: 45%">
+    <div class="col-md-2">
+      <div class="row" id="label" style="margin-top: 17%;">
+        <h3 style="text-align: center; font-weight: bolder; color: rgb(233, 152, 3); font-size: x-large;">Enrolled Events</h3>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <p-carousel
+        [value]="enrolled"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="false"
+        [responsiveOptions]="responsiveOptions">
+        <ng-template let-event pTemplate="item" class="content">
+          <div class="event-item">
+            <div class="event-item-content" routerLink="eventDetails/{{event.eventId}}">
+              <div>
+                <img id="event-image" src="{{event.eventImage}}" />
+                <div class="row" style="padding-right: 5%; padding-left: 5%">
+                  <div class="col-md-6" style="text-align: left; padding-top: 5% ">
+                    <p style="padding-left: 2%; font-size: medium; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                      {{ event.eventName }}
+                    </p>
+                    <p style="padding-left: 2%; font-weight: bold; font-size: small; font-family:Georgia, 'Times New Roman', Times, serif">
+                      {{ event.categoryDto.categoryName }}
+                    </p>
+                  </div>
+                  <div class="col-md-6" style="text-align: right; padding-top: 5%">
+                    <p style="padding-right: 2%; font-size: medium; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                      {{ event.eventDate }}
+                    </p>
+                    <p style="padding-right: 2% ; font-weight:bold; font-size: 12px; font-family:Georgia, 'Times New Roman', Times, serif">
+                      {{event.eventStartTime | lowercase}} - {{event.eventEndTime | lowercase}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 1%;">
+                  <div class="col-md-12" style="text-align: center; font-size: 15px; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(173, 2, 2);">
+                    {{getRegistrationStatus(event)}}
+                  </div>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+
+
+
+  <div class="row" style="height: 45%">
+    <div class="col-md-2">
+      <div class="row" id="label" style="margin-top: 17%;">
+        <h3 style="text-align: center; font-weight: bolder; color: rgb(233, 152, 3); font-size: x-large;">Favourite Events</h3>
+      </div>
+    </div>
+    <div class="col-md-10" >
+      <p-carousel
+        [value]="wishlist"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="false"
+        [responsiveOptions]="responsiveOptions"
+      >
+        <ng-template let-event pTemplate="item"  >
+          <div class="event-item">
+            <div class="event-item-content" routerLink="eventDetails/{{event.eventId}}">
+              <div>
+                <img id="event-image" src="{{event.eventImage}}" />
+                <div class="row" style="padding-right: 5%; padding-left: 5%">
+                  <div class="col-md-6" style="text-align: left; padding-top: 5% ">
+                    <p style="padding-left: 2%; font-size: medium; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                      {{ event.eventName }}
+                    </p>
+                    <p style="padding-left: 2%; font-weight: bold; font-size: small; font-family:Georgia, 'Times New Roman', Times, serif">
+                      {{ event.categoryDto.categoryName }}
+                    </p>
+                  </div>
+                  <div
+                    class="col-md-6"
+                    style="text-align: right; padding-top: 5%"
+                  >
+                    <p style="padding-right: 2%; font-size: medium; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                      {{ event.eventDate }}
+                    </p>
+                    <p style="padding-right: 2% ; font-weight:bold; font-size: 12px; font-family:Georgia, 'Times New Roman', Times, serif">
+                      {{event.eventStartTime | lowercase}} - {{event.eventEndTime | lowercase}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 1%;">
+                    <div class="col-md-12" style="text-align: center; font-size: 15px; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(173, 2, 2);">
+                      {{getRegistrationStatus(event)}}
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+
+
+
+  <div class="row" style="height: 45%">
+    <div class="col-md-2">
+      <div class="row" id="label" style="margin-top: 17%;">
+        <h3 style="text-align: center; font-weight: bolder; color: rgb(233, 152, 3); font-size: x-large;">Created Events</h3>
+      </div>
+    </div>
+    <div class="col-md-10" >
+      <p-carousel
+        [value]="created"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="false"
+        [responsiveOptions]="responsiveOptions"
+      >
+        <ng-template let-event pTemplate="item"  >
+          <div class="event-item">
+            <div class="event-item-content" routerLink="eventDetails/{{event.eventId}}">
+              <div>
+                <img id="event-image" src="{{event.eventImage}}" />
+                <div class="row" style="padding-right: 5%; padding-left: 5%">
+                  <div class="col-md-6" style="text-align: left; padding-top: 5% ">
+                    <p style="padding-left: 2%; font-size: medium; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                      {{ event.eventName }}
+                    </p>
+                    <p style="padding-left: 2%; font-weight: bold; font-size: small; font-family:Georgia, 'Times New Roman', Times, serif">
+                      {{ event.categoryDto.categoryName }}
+                    </p>
+                  </div>
+                  <div
+                    class="col-md-6"
+                    style="text-align: right; padding-top: 5%"
+                  >
+                    <p style="padding-right: 2%; font-size: medium; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                      {{ event.eventDate }}
+                    </p>
+                    <p style="padding-right: 2% ; font-weight:bold; font-size: 12px; font-family:Georgia, 'Times New Roman', Times, serif">
+                      {{event.eventStartTime | lowercase}} - {{event.eventEndTime | lowercase}}
+                    </p>
+                  </div>
+                </div>
+                <div class="row" style="margin-top: 1%;">
+                    <div class="col-md-12" style="text-align: center; font-size: 15px; font-weight: bolder; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(173, 2, 2);">
+                      {{getRegistrationStatus(event)}}
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="row" style="height: 10%"></div>
+
+

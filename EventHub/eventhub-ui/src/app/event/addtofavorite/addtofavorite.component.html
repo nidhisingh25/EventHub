@@ -1,0 +1,24 @@
+<div style="text-align:center">
+  <h3>Your Wishlist</h3><div align="center">
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Event id</th>
+          <th>Event Name</th>
+          <th></th>
+          <th></th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of favItems">
+        <td>{{item.eventId}}</td>
+        <td>{{item.eventName}}</td>
+        <td><button (click)="removeFromWishlist(item)"  class="removeFromWishlist" style='background-color:lightcoral' >Remove from favorites</button></td>
+        <td><button class="removeFromWishlist" style='background-color:lightcoral' >VIEW DETAILS</button></td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

@@ -1,0 +1,11 @@
+table {
+  border: 1px white;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+table {
+  align-items: center;
+  width: 70%;
+  height: 40px;
+  align-self: center;
+  margin-left: 0%;
+}

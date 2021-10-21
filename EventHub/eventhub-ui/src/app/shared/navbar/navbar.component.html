@@ -1,0 +1,366 @@
+
+<nav class="navbar navbar-expand-lg navbar-light navbar-background">
+  <!-- <img src={{eventImage}} /> -->
+  <img [routerLink]="['']" class="brand-img" src="assets/images/hashedin-logo.png" />
+
+  <button
+    class="navbar-toggler"
+    (click)="toggleNavbarCollapsing()"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div
+    class="collapse navbar-collapse"
+    id="navbarText"
+    [class.collapse]="navbarCollapsed"
+  >
+    <div class="ms-auto order-0">
+      <mat-icon [routerLink]="['']"><span class="material-icons-round vertical-home">
+        home
+        </span></mat-icon>
+    </div>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link user-login-details">
+          <div class="dropdown">
+            <div
+              class="user-activity-div"
+              (click)="openBackDropCustomClass(content)"
+            >
+              <img src="assets/images/user.png" />&nbsp;
+              <span #userSpan id="userSpan" style="color: black;">Login</span>
+            </div>
+            <div *ngIf="isAuthenticated" class="dropdown-content">
+              <div (click)="open(contentEdit)">Add New Events</div>
+              <div [routerLink]="['user']">My Events</div>
+              <div (click)="logout(event)">Logout</div>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<ng-template id="loginModal" #content let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">Login to Eventhub</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="loginForm" (ngSubmit)="authenticate()">
+      <div>
+        <label for="username"
+          >Enter Username<span class="required-asterisk">*</span></label
+        >
+        <br />
+        <input
+          class="input-box"
+          type="email"
+          id="username"
+          name="username"
+          formControlName="username"
+          required
+        />
+        <div
+          *ngIf="
+            loginForm.controls['username'].invalid &&
+            loginForm.controls['username'].touched &&
+            loginForm.controls['username'].errors?.required
+          "
+          class="alert alert-danger"
+        >
+          Email is required.
+        </div>
+      </div>
+      <div>
+        <label for="password"
+          >Enter Password<span class="required-asterisk">*</span></label
+        >
+        <br />
+        <input
+          class="input-box"
+          type="password"
+          id="password"
+          name="password"
+          formControlName="password"
+          required
+        />
+        <div
+          *ngIf="
+            loginForm.controls['password'].invalid &&
+            loginForm.controls['password'].touched &&
+            loginForm.controls['password'].errors?.required
+          "
+          class="alert alert-danger"
+        >
+          Password is required.
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button
+          class="input-btn vertical-middle rounded"
+          type="submit"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer"></div>
+</ng-template>
+
+<ng-template #contentEdit let-modal>
+  <div class="modal-header">
+    <h2 class="modal-title">Add New Event</h2>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm" novalidate>
+      <div class="form-group">
+        <label for="eventname"
+          ><b>Event Name</b><span class="required-asterisk">*</span></label
+        >
+        <div class="input-group">
+          <input
+            class="input-box"
+            type="email"
+            id="eventname"
+            name="eventname"
+            formControlName="eventname"
+            required
+          />
+          <div
+            *ngIf="
+              editForm.controls['eventname'].invalid &&
+              editForm.controls['eventname'].touched &&
+              editForm.controls['eventname'].errors?.required
+            "
+            class="alert alert-danger"
+          >
+            Event Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="eventdesc"><b>Event Description</b></label>
+        <div class="input-group">
+          <textarea
+            id="eventdesc"
+            name="eventdesc"
+            class="form-control"
+            formControlName="eventdesc"
+            style="height: 100px;"
+            required
+          ></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="eventrules"><b>Event Rules</b></label>
+        <div class="input-group">
+          <textarea
+            id="eventrules"
+            name="eventrules"
+            class="form-control"
+            style="height: 100px;"
+            formControlName="eventrules"
+            required
+          ></textarea>
+        </div>
+      </div>
+        <br>
+
+      <div class="form-group">
+        <label for="enrollseats"
+          ><b>Number of enroll seats</b><span class="required-asterisk">*</span></label
+        >
+        <div class="input-group">
+          <input
+            class="input-box"
+            type="number"
+            id="enrollseats"
+            name="enrollseats"
+            formControlName="enrollseats"
+            required
+          />
+          <div
+            *ngIf="
+              editForm.controls['enrollseats'].invalid &&
+              editForm.controls['enrollseats'].touched &&
+              editForm.controls['enrollseats'].errors?.required
+            "
+            class="alert alert-danger"
+          >
+          Enroll seats is required.
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="zoomlink"
+          ><b>Event Zoom Link</b></label
+        >
+        <div class="input-group">
+          <input
+            class="input-box"
+            type="zoomlink"
+            id="zoomlink"
+            name="zoomlink"
+            formControlName="zoomlink"
+            required
+          />
+          </div>
+          </div>
+
+      <div class="form-group">
+        <label for="eventimage"
+          ><b>Event Image</b><span class="required-asterisk">*</span></label
+        >
+        <div style="height:100%">
+
+          <input type="file" id="myFile" name="filename" (change)="storeImage($event)" #fileInput size="100">
+          <!-- <input style="display: none;" type="file" (change)="storeImage($event)" #fileInput> -->
+          <!-- <button type="button" class="uploadImage" (click)="fileInput.click()" style="width: 40%;">Upload
+            Image</button> -->
+        </div>
+        <!-- <div class="input-group">
+          <input
+            class="input-box"
+            type="email"
+            id="eventimage"
+            name="eventimage"
+            formControlName="eventimage"
+            type="file"
+            #uploader
+            (change)="uploadFile($event)"
+            required
+          >
+          <div
+            *ngIf="
+              editForm.controls['eventimage'].invalid &&
+              editForm.controls['eventimage'].touched &&
+              editForm.controls['eventimage'].errors?.required
+            "
+            class="alert alert-danger"
+          >
+            Event Image is required.
+          </div>
+        </div> -->
+      </div>
+      <br>
+
+          <div class="form-group">
+            <label for="eventdate"
+              ><b>Event Date</b><span class="required-asterisk">*</span></label
+            >
+            <div class="input-group">
+              <input
+                class="input-box"
+                type="eventdate"
+                id="eventdate"
+                name="eventdate"
+                formControlName="eventdate"
+                placeholder="YYYY-MM-DD"
+                required
+              />
+              <div
+                *ngIf="
+                  editForm.controls['eventdate'].invalid &&
+                  editForm.controls['eventdate'].touched &&
+                  editForm.controls['eventdate'].errors?.required
+                "
+                class="alert alert-danger"
+              >
+                Event Date is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="eventstarttime"
+              ><b>Event Start Time</b><span class="required-asterisk">*</span></label
+            >
+            <div class="input-group">
+              <div class="ngx-timepicker-field-example">
+                <ngx-timepicker-field min="10:00 am" max="06:00 pm" formControlName="eventstarttime" [controlOnly]="true"></ngx-timepicker-field>
+            </div>
+              </div>
+           </div>
+           <br>
+           <div class="form-group">
+            <label for="eventendtime"
+              ><b>Event End Time</b><span class="required-asterisk">*</span></label
+            >
+            <div class="input-group">
+              <div class="ngx-timepicker-field-example">
+                <ngx-timepicker-field  min="10:00 am" max="06:00 pm" formControlName="eventendtime" [controlOnly]="true"></ngx-timepicker-field>
+            </div>
+              </div>
+           </div>
+<br>
+      <div class="form-group">
+        <label for="categoryname"
+          ><b>Category</b><span class="required-asterisk">*</span></label
+        >
+        <div class="input-group">
+          <mat-radio-group
+            aria-label="elect an option"
+            formControlName="categoryname"
+            [(ngModel)]="selection"
+            #radioGroup="matRadioGroup"
+            *ngFor="let ecategory of eventcategory"
+          >
+            <mat-radio-button class="example-radio-button" value="{{ecategory.categoryName}}"
+              >{{ecategory.categoryName}}</mat-radio-button
+            >&nbsp;&nbsp;&nbsp;&nbsp;
+          </mat-radio-group>
+        </div>
+      </div>
+
+      <br>
+      <div class="text-center">
+        <button
+          class="input-btn vertical-middle rounded"
+          type="submit"
+          (click)="modal.dismiss('Cross click')"
+          (click)="openSave(event)"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark rounded"
+      (click)="modal.close('Cancel click')"
+    >
+      Cancel
+    </button>
+  </div>
+</ng-template>
+
+

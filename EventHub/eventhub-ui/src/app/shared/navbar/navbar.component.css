@@ -1,0 +1,166 @@
+.brand-img {
+  margin-left: 25px;
+
+  cursor: pointer;
+}
+
+.user-login-details {
+  margin-right: 25px;
+
+  color: white;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+
+  box-shadow: 0 2px 4px 0 #66abec;
+
+  transition: 0.1s;
+}
+
+.vertical-home {
+  vertical-align: right;
+
+  margin-left: 220%;
+
+  margin-right: 20%;
+
+  transition: 0.1s;
+}
+.modal-content {
+  /* 80% of window height */
+
+  height: 60%;
+
+  background-color: #bbd6ec;
+}
+
+.modal-header {
+  background-color: #337ab7;
+
+  padding: 16px 16px;
+
+  color: #fff;
+
+  border-bottom: 2px dashed #337ab7;
+}
+
+.light-blue-backdrop {
+  background-color: #0b4374;
+}
+.registration {
+  color: red;
+
+  text-decoration: underline;
+}
+
+.user-activity-div {
+  color: white;
+
+  font-size: medium;
+}
+
+.user-activity-div:hover {
+  cursor: pointer;
+}
+
+.input-box {
+  width: 100%;
+
+  padding: 12px 20px;
+
+  margin: 8px 0;
+
+  box-sizing: border-box;
+}
+.input-btn {
+  background-color: #eff542;
+
+  color: black;
+
+  border: black;
+
+  border-style: solid;
+
+  border-width: thin;
+
+  height: 35px;
+
+  width: 60px;
+}
+.input-btn:hover {
+  background-color: #9efd04;
+}
+
+.navbar-background {
+  background: rgb(255, 191, 52);
+}
+
+.required-asterisk {
+  color: red;
+
+  font-weight: bold;
+
+  margin-left: 3px;
+
+  font-size: 1.2em;
+}
+
+.dropbtn {
+  background-color: #04aa6d;
+
+  color: white;
+
+  padding: 16px;
+
+  font-size: 16px;
+
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+
+  position: absolute;
+
+  background-color: #f1f1f1;
+
+  min-width: 160px;
+
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+  z-index: 1;
+}
+
+.dropdown-content div {
+  color: black;
+
+  padding: 12px 16px;
+
+  text-decoration: none;
+
+  display: block;
+}
+
+.dropdown-content div:hover {
+  background-color: #66abec;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+
+  cursor: pointer;
+}
+
+.timepicker-overlay {
+  z-index: 10000000;
+}
+
+.timepicker-backdrop-overlay {
+  z-index: 10000000;
+}
